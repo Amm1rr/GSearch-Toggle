@@ -1,0 +1,54 @@
+// ==UserScript==
+// @name         GSeach Toggle Persian/English
+// @name:fa      سوییچ جستجوی گوگل
+// @version      0.1
+// @author       Amir
+// @description  GToggle can change the language of Google search results
+//               between two different languages.
+// @description:fa با این اسکریپت به راحتی می‌توان بین زبان انگلیسی و فارسی
+//               در جستجوی گوگل سوییچ کرد، البته بدون تغییر در چینش
+//               صفحه از چپ به راست.
+// @homepage     https://github.com/Amm1rr/GToggle
+// @namespace    amm1rr
+// @match        https://www.google.com/search*
+// @match        https://www.google.uk/search*
+// @match        https://www.google.us/search*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    //const settingsBtn = document.querySelector('#abar_button_opt');
+    const settingsBtn = document.querySelector('#hdtb-tls');
+    const settingsBtnParent = settingsBtn.parentElement;
+    const a = document.createElement('a');
+    const query = new URLSearchParams(decodeURIComponent(location.search));
+    const isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
+    if (isFarsi) {
+        query.delete('lr');
+        query.delete('tbs');
+        a.textContent = 'English';
+    } else {
+        query.set('lr', 'lang_fa');
+        query.set('tbs', 'lr:lang_1fa');
+        a.textContent = 'Persian';
+    }
+
+    const href = `${location.origin}${location.pathname}?${query.toString()}`;
+    a.setAttribute('href', href);
+    a.classList.add('hdtb-tl');
+    a.style.cssText = 'color: #5f6368;text-decoration: none;'
+    settingsBtnParent.insertBefore(a, settingsBtn)
+    Object.assign(settingsBtnParent.style, {
+        height: '100%',
+        display: 'flex',
+        'align-items': 'baseline'
+    })
+
+    Object.assign(settingsBtnParent.parentElement.style, {
+        flex: 1,
+        display: 'flex',
+        'justify-content': 'flex-end',
+        'align-items': 'baseline'
+    })
+})();
