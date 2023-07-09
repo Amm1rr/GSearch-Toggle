@@ -1,54 +1,129 @@
 // ==UserScript==
-// @name         GSeach Toggle Persian/English
-// @name:fa      سوییچ جستجوی گوگل
-// @version      0.1
+// @name         GSearch Toggle Persian/English
+// @name:fa      سوییچ فارسی/انگلیسی گوگل
+// @version      0.3
 // @author       Amir
-// @description  GToggle can change the language of Google search results
-//               between two different languages.
+// @updateURL    https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript
+// @downloadURL  https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript
+// @description  GToggle can change google search language result between
+//               English and Persian without any effect in RTL direction. (fork as tgxhx)
 // @description:fa با این اسکریپت به راحتی می‌توان بین زبان انگلیسی و فارسی
 //               در جستجوی گوگل سوییچ کرد، البته بدون تغییر در چینش
 //               صفحه از چپ به راست.
-// @homepage     https://github.com/Amm1rr/GToggle
+// @homepage     https://github.com/Amm1rr
 // @namespace    amm1rr
 // @match        https://www.google.com/search*
 // @match        https://www.google.uk/search*
 // @match        https://www.google.us/search*
+// @exclude      https://www.google.us/maps*
 // @grant        none
 // ==/UserScript==
 
+/*
+
+Changes: 7/09/2023
+----
+v0.3:
+- Excldue Google Map
+- Added UK/US google domain
+- Added support for Tablets and Fablets
+
+*/
+
 (function() {
     'use strict';
-    //const settingsBtn = document.querySelector('#abar_button_opt');
-    const settingsBtn = document.querySelector('#hdtb-tls');
-    const settingsBtnParent = settingsBtn.parentElement;
-    const a = document.createElement('a');
-    const query = new URLSearchParams(decodeURIComponent(location.search));
-    const isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
-    if (isFarsi) {
-        query.delete('lr');
-        query.delete('tbs');
-        a.textContent = 'English';
-    } else {
-        query.set('lr', 'lang_fa');
-        query.set('tbs', 'lr:lang_1fa');
-        a.textContent = 'Persian';
+
+    var bFound=false;
+
+    const divElement = document.querySelector('.Pg70bf.Uv67qb');  //-- Fablet
+    if (divElement) {
+        const anchorTags = divElement.getElementsByTagName('a');
+//        if (anchorTags.length > 0) {
+
+            bFound=true;
+
+            const lastAnchorTag = anchorTags[anchorTags.length - 2];
+
+            const a = document.createElement('a');
+            const query = new URLSearchParams(decodeURIComponent(location.search));
+            const isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
+            if (isFarsi) {
+                query.delete('lr');
+                query.delete('tbs');
+                a.textContent = 'English';
+            } else {
+                query.set('lr', 'lang_fa');
+                query.set('tbs', 'lr:lang_1fa');
+                a.textContent = 'Persian';
+            }
+
+            const href = `${location.origin}${location.pathname}?${query.toString()}`;
+            a.setAttribute('href', href);
+            a.classList.add('hdtb-tl');
+            a.style.cssText = 'color: #5f6368;text-decoration: none;'
+            lastAnchorTag.insertAdjacentElement('afterend', a);
+//    }
+    }
+    if (!bFound){ //-- It's wasn't mobile
+
+        var settingsBtn = document.querySelector('#uddia_1');
+
+        var a = document.createElement('a');
+        var query = new URLSearchParams(decodeURIComponent(location.search));
+        var isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
+        if (isFarsi) {
+            query.delete('lr');
+            query.delete('tbs');
+            a.textContent = 'English';
+        } else {
+            query.set('lr', 'lang_fa');
+            query.set('tbs', 'lr:lang_1fa');
+            a.textContent = 'Persian';
+        }
+
+        var href = `${location.origin}${location.pathname}?${query.toString()}`;
+        a.setAttribute('href', href);
+        a.classList.add('hdtb-tl');
+        a.style.cssText = 'color: #5f6368;text-decoration: none;'
+        settingsBtn.insertAdjacentElement('afterbegin', a);
+        bFound=true;
     }
 
-    const href = `${location.origin}${location.pathname}?${query.toString()}`;
-    a.setAttribute('href', href);
-    a.classList.add('hdtb-tl');
-    a.style.cssText = 'color: #5f6368;text-decoration: none;'
-    settingsBtnParent.insertBefore(a, settingsBtn)
-    Object.assign(settingsBtnParent.style, {
-        height: '100%',
-        display: 'flex',
-        'align-items': 'baseline'
-    })
+    //----- OLD Way
+    if (!bFound) {
+        var settingsBtn = document.querySelector('#hdtb-tls');
+        var settingsBtnParent = settingsBtn.parentElement;
 
-    Object.assign(settingsBtnParent.parentElement.style, {
-        flex: 1,
-        display: 'flex',
-        'justify-content': 'flex-end',
-        'align-items': 'baseline'
-    })
+        var a = document.createElement('a');
+        var query = new URLSearchParams(decodeURIComponent(location.search));
+        var isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
+        if (isFarsi) {
+            query.delete('lr');
+            query.delete('tbs');
+            a.textContent = 'English';
+        } else {
+            query.set('lr', 'lang_fa');
+            query.set('tbs', 'lr:lang_1fa');
+            a.textContent = 'Persian';
+        }
+
+        var href = `${location.origin}${location.pathname}?${query.toString()}`;
+        a.setAttribute('href', href);
+        a.classList.add('hdtb-tl');
+        a.style.cssText = 'color: #5f6368;text-decoration: none;'
+        settingsBtnParent.insertBefore(a, settingsBtn)
+        Object.assign(settingsBtnParent.style, {
+            height: '100%',
+            display: 'flex',
+            'align-items': 'baseline'
+        })
+
+        Object.assign(settingsBtnParent.parentElement.style, {
+            flex: 1,
+            display: 'flex',
+            'justify-content': 'flex-end',
+            'align-items': 'baseline'
+        })
+    }
+
 })();
