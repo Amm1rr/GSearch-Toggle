@@ -1,17 +1,14 @@
 // ==UserScript==
-// @name         GSearch Toggle Persian/English
+// @name         GSearch Toggle lang
 // @name:fa      سوییچ فارسی/انگلیسی گوگل
 // @version      0.3
 // @author       Amir
-// @updateURL    https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript.js
-// @downloadURL  https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript.js
-// @description  GToggle can change google search language result between
-//               English and Persian without any effect in RTL direction. (fork as tgxhx)
-// @description:fa با این اسکریپت به راحتی می‌توان بین زبان انگلیسی و فارسی
-//               در جستجوی گوگل سوییچ کرد، البته بدون تغییر در چینش
-//               صفحه از چپ به راست.
-// @homepage     https://github.com/Amm1rr
+// @updateURL    https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
+// @downloadURL  https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
+// @description  GSearch Toggle can change Google search results to different languages, specifically English and Persian, without affecting the RTL (Right-to-Left) direction. (Based on the fork from tgxhx)
+// @homepage     https://github.com/Amm1rr/GSearch-Toggle/
 // @namespace    amm1rr
+// @description:fa با این اسکریپت به راحتی می‌توان بین جستجو در زبان انگلیسی یا فارسی در جستجوی گوگل سوییچ کرد، یک گزینه زیر جستجوی گوگل اضافه می شود. البته بدون تغییر در چینش صفحه از چپ به راست.
 // @match        https://www.google.com/search*
 // @match        https://www.google.uk/search*
 // @match        https://www.google.us/search*
