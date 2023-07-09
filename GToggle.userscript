@@ -3,8 +3,8 @@
 // @name:fa      سوییچ فارسی/انگلیسی گوگل
 // @version      0.3
 // @author       Amir
-// @updateURL    https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript
-// @downloadURL  https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript
+// @updateURL    https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript.js
+// @downloadURL  https://github.com/Amm1rr/GToggle/raw/main/GToggle.userscript.js
 // @description  GToggle can change google search language result between
 //               English and Persian without any effect in RTL direction. (fork as tgxhx)
 // @description:fa با این اسکریپت به راحتی می‌توان بین زبان انگلیسی و فارسی
