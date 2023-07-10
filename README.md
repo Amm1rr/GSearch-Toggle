@@ -23,4 +23,4 @@ GSearch Toggle is a user script for browsers that executes scripts like Tampermo
 [![Screenshot 3](Screenshots/03_thumbnail.jpg)](Screenshots/03.jpg)
 
 
-[![](https://visitcount.itsvg.in/api?id=amm1rr&label=Views&color=0&icon=2&pretty=true)](https://github.com/Amm1rr/)
+[![](https://visitcount.itsvg.in/api?id=amm1rr&label=&color=0&icon=2&pretty=true)](https://github.com/Amm1rr/)
