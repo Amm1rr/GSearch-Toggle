@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GSearch Toggle lang
 // @name:fa      سوییچ فارسی/انگلیسی گوگل
-// @version      0.3
+// @version      0.4
 // @author       Amir
 // @updateURL    https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
 // @downloadURL  https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
@@ -9,118 +9,106 @@
 // @homepage     https://github.com/Amm1rr/GSearch-Toggle/
 // @namespace    amm1rr
 // @description:fa با این اسکریپت به راحتی می‌توان بین جستجو در زبان انگلیسی یا فارسی در جستجوی گوگل سوییچ کرد، یک گزینه زیر جستجوی گوگل اضافه می شود. البته بدون تغییر در چینش صفحه از چپ به راست.
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
+// @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @match        https://www.google.com/search*
 // @match        https://www.google.uk/search*
 // @match        https://www.google.us/search*
 // @exclude      https://www.google.us/maps*
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
 
 /*
 
-Changes: 7/09/2023
-----
+** Changes:
+
+10/09/2023
+-----
+v0.4:
+- Added support for mobile, tablet, and desktop devices
+
+7/09/2023
+-----
 v0.3:
-- Excldue Google Map
-- Added UK/US google domain
-- Added support for Tablets and Fablets
+- Excluded Google Map
+- Added support for UK/US Google domains
 
 */
 
 (function() {
     'use strict';
 
-    var bFound=false;
+    // I just added this variable to check if the class is found for the first time, so there's no need to execute multiple times.
+    var iFoundCounter = 0;
 
-    const divElement = document.querySelector('.Pg70bf.Uv67qb');  //-- Fablet
-    if (divElement) {
-        const anchorTags = divElement.getElementsByTagName('a');
-//        if (anchorTags.length > 0) {
+    //-- Wait for the "Tools" button
+    waitForKeyElements (".PuHHbb", onPageLoaded);
 
-            bFound=true;
+    function CreateSeprator(){
+        var seperator = document.createElement("div");
+            seperator.classList.add("IDFSOe");
+            //-- Class=> TZqsAd
+        
+            return seperator;
+    }
+    
+    function CreateLink(){
+        var aTag = document.createElement('a');
+        var query = new URLSearchParams(decodeURIComponent(location.search));
+        const isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
+        if (isFarsi) {
+            query.delete('lr');
+            query.delete('tbs');
+            aTag.textContent = 'English';
+        } else {
+            query.set('lr', 'lang_fa');
+            query.set('tbs', 'lr:lang_fa');
+            aTag.textContent = 'Persian';
+        }
 
-            const lastAnchorTag = anchorTags[anchorTags.length - 2];
+        const href = `${location.origin}${location.pathname}?${query.toString()}`;
+        aTag.setAttribute('href', href);
+        aTag.classList.add('hdtb-tl');
+        aTag.style.cssText = 'color: #5f6368;text-decoration: none;';
 
-            const a = document.createElement('a');
-            const query = new URLSearchParams(decodeURIComponent(location.search));
-            const isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
-            if (isFarsi) {
-                query.delete('lr');
-                query.delete('tbs');
-                a.textContent = 'English';
-            } else {
-                query.set('lr', 'lang_fa');
-                query.set('tbs', 'lr:lang_1fa');
-                a.textContent = 'Persian';
+        return aTag;
+    }
+
+    // Function to be executed after the page has completely loaded
+    function onPageLoaded() {
+
+        //-- Desktop
+        var ToolsButton = document.querySelector(".PuHHbb");
+        // alert("0." + ToolsButton);
+        
+        //-- Tablet & Mobile
+            if (!ToolsButton) {
+                ToolsButton = document.querySelector('.hdtb-tl-sel');
+                // alert("1." + ToolsButton);
             }
 
-            const href = `${location.origin}${location.pathname}?${query.toString()}`;
-            a.setAttribute('href', href);
-            a.classList.add('hdtb-tl');
-            a.style.cssText = 'color: #5f6368;text-decoration: none;'
-            lastAnchorTag.insertAdjacentElement('afterend', a);
-//    }
-    }
-    if (!bFound){ //-- It's wasn't mobile
+            if (!ToolsButton) {
+                ToolsButton = document.querySelector('#hdtb-tls');
+                // alert("2." + ToolsButton);
+            }
 
-        var settingsBtn = document.querySelector('#uddia_1');
-
-        var a = document.createElement('a');
-        var query = new URLSearchParams(decodeURIComponent(location.search));
-        var isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
-        if (isFarsi) {
-            query.delete('lr');
-            query.delete('tbs');
-            a.textContent = 'English';
-        } else {
-            query.set('lr', 'lang_fa');
-            query.set('tbs', 'lr:lang_1fa');
-            a.textContent = 'Persian';
+            if (!ToolsButton) {
+                ToolsButton = document.querySelector('.TZqsAd');
+                // alert("3." + ToolsButton);
+            }
+        
+        if (ToolsButton) {
+            if (iFoundCounter > 0){return}
         }
+        iFoundCounter++;
+        //-- Mobile
+        
+        var seperator = CreateSeprator();
+        var alink = CreateLink();
 
-        var href = `${location.origin}${location.pathname}?${query.toString()}`;
-        a.setAttribute('href', href);
-        a.classList.add('hdtb-tl');
-        a.style.cssText = 'color: #5f6368;text-decoration: none;'
-        settingsBtn.insertAdjacentElement('afterbegin', a);
-        bFound=true;
+        ToolsButton.insertAdjacentElement('afterend', seperator);
+        seperator.insertAdjacentElement('afterend', alink);
     }
 
-    //----- OLD Way
-    if (!bFound) {
-        var settingsBtn = document.querySelector('#hdtb-tls');
-        var settingsBtnParent = settingsBtn.parentElement;
-
-        var a = document.createElement('a');
-        var query = new URLSearchParams(decodeURIComponent(location.search));
-        var isFarsi = (query.get('lr') || '').toLowerCase() === 'lang_fa';
-        if (isFarsi) {
-            query.delete('lr');
-            query.delete('tbs');
-            a.textContent = 'English';
-        } else {
-            query.set('lr', 'lang_fa');
-            query.set('tbs', 'lr:lang_1fa');
-            a.textContent = 'Persian';
-        }
-
-        var href = `${location.origin}${location.pathname}?${query.toString()}`;
-        a.setAttribute('href', href);
-        a.classList.add('hdtb-tl');
-        a.style.cssText = 'color: #5f6368;text-decoration: none;'
-        settingsBtnParent.insertBefore(a, settingsBtn)
-        Object.assign(settingsBtnParent.style, {
-            height: '100%',
-            display: 'flex',
-            'align-items': 'baseline'
-        })
-
-        Object.assign(settingsBtnParent.parentElement.style, {
-            flex: 1,
-            display: 'flex',
-            'justify-content': 'flex-end',
-            'align-items': 'baseline'
-        })
-    }
-
+    window.onload = onPageLoaded;
 })();
