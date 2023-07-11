@@ -35,10 +35,39 @@ Last Changes: (Sort by Date)
 
     // I just added this variable to check if the class is found for the first time, so there's no need to execute multiple times.
     var iFoundCounter = 0;
+    
+    // How to use:
+    // if( isMobile.any() ) alert('Mobile');
+    // To check to see if the user is on a specific mobile device:
+    // if( isMobile.iOS() ) alert('iOS');
+    const isMobile = {
+        Android: function() {
+            return navigator.userAgent.match(/Android/i);
+        },
+        BlackBerry: function() {
+            return navigator.userAgent.match(/BlackBerry/i);
+        },
+        iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        },
+        Opera: function() {
+            return navigator.userAgent.match(/Opera Mini/i);
+        },
+        Windows: function() {
+            return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+        },
+        any: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+        }
+    };
 
     //-- Wait for the "Tools" button
-    waitForKeyElements (".PuHHbb", onPageLoaded);
-    waitForKeyElements ('div[jsname="yIZuWb"]', onPageLoadedMobile);
+    if (isMobile.any()){        
+        waitForKeyElements('div[jsname="yIZuWb"]', onPageLoadedMobile);
+    }else{
+        waitForKeyElements(".PuHHbb", onPageLoaded);
+    }
+    
     
     function CreateSeprator(){
         var seperator = document.createElement("div");
@@ -79,7 +108,7 @@ Last Changes: (Sort by Date)
     // Function to be executed after the page has completely loaded
     function onPageLoaded(arg) {
 
-        if (arg){
+        if (arg=="Mobile"){
             
             //-- Mobile
             var ToolsButton = document.querySelector('div[jsname="yIZuWb"]');
@@ -108,7 +137,7 @@ Last Changes: (Sort by Date)
         }
         
         if (ToolsButton) {
-            if (iFoundCounter > 0){return}
+            if (iFoundCounter > 1){return}
         }
         iFoundCounter++;
         
@@ -118,6 +147,7 @@ Last Changes: (Sort by Date)
         ToolsButton.insertAdjacentElement('afterend', seperator);
         seperator.insertAdjacentElement('afterend', alink);
     }
+    
 
     //document.addEventListener('DOMContentLoaded', onPageLoaded);
     window.onload = onPageLoaded;
