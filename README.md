@@ -22,10 +22,10 @@ GSearch Toggle is a browser user script that executes scripts like Tampermonkey,
 
 <div align="center">
 
-![Screenshot 1](Screenshots/01.jpg)
-[![Screenshot 1](Screenshots/01_thumbnail.jpg)](Screenshots/01.jpg)
-
-![Screenshot Mobile](Screenshots/Mobile.jpg)
+[Mobile](Screenshots/Mobile.jpg)<br>
 [![Screenshot Mobile](Screenshots/Mobile_thumbnail.jpg)](Screenshots/Mobile.jpg)
+
+[Desktop/Tablet](Screenshots/01.jpg)<br>
+[![Screenshot 1](Screenshots/01_thumbnail.jpg)](Screenshots/01.jpg)
 
 </div>
