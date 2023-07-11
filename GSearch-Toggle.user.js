@@ -20,18 +20,13 @@
 
 /*
 
-** Changes:
+Last Changes: (Sort by Date)
 
-10/09/2023
------
-v0.4:
-- Added support for mobile, tablet, and desktop devices
+10/07/2023
 
-7/09/2023
------
-v0.3:
 - Excluded Google Map
 - Added support for UK/US Google domains
+- Added support for mobile, tablet, and desktop devices
 
 */
 
@@ -43,7 +38,8 @@ v0.3:
 
     //-- Wait for the "Tools" button
     waitForKeyElements (".PuHHbb", onPageLoaded);
-
+    waitForKeyElements ('div[jsname="yIZuWb"]', onPageLoadedMobile);
+    
     function CreateSeprator(){
         var seperator = document.createElement("div");
             seperator.classList.add("IDFSOe");
@@ -74,34 +70,47 @@ v0.3:
         return aTag;
     }
 
+    
+    function onPageLoadedMobile() {
+        onPageLoaded("Mobile")
+    }
+    
+    
     // Function to be executed after the page has completely loaded
-    function onPageLoaded() {
+    function onPageLoaded(arg) {
 
-        //-- Desktop
-        var ToolsButton = document.querySelector(".PuHHbb");
-        // alert("0." + ToolsButton);
-        
-        //-- Tablet & Mobile
-            if (!ToolsButton) {
-                ToolsButton = document.querySelector('.hdtb-tl-sel');
-                // alert("1." + ToolsButton);
-            }
+        if (arg){
+            
+            //-- Mobile
+            var ToolsButton = document.querySelector('div[jsname="yIZuWb"]');
+            
+        }else{
+            
+            //-- Desktop
+            var ToolsButton = document.querySelector(".PuHHbb");
+            
+            //-- Tablet
+                if (!ToolsButton) {
+                    ToolsButton = document.querySelector('.hdtb-tl-sel');
+                    // alert("1." + ToolsButton);
+                }
 
-            if (!ToolsButton) {
-                ToolsButton = document.querySelector('#hdtb-tls');
-                // alert("2." + ToolsButton);
-            }
+                if (!ToolsButton) {
+                    ToolsButton = document.querySelector('#hdtb-tls');
+                    // alert("2." + ToolsButton);
+                }
 
-            if (!ToolsButton) {
-                ToolsButton = document.querySelector('.TZqsAd');
-                // alert("3." + ToolsButton);
-            }
+                if (!ToolsButton) {
+                    ToolsButton = document.querySelector('.TZqsAd');
+                    // alert("3." + ToolsButton);
+                }
+            //-- Tablet
+        }
         
         if (ToolsButton) {
             if (iFoundCounter > 0){return}
         }
         iFoundCounter++;
-        //-- Mobile
         
         var seperator = CreateSeprator();
         var alink = CreateLink();
@@ -110,5 +119,7 @@ v0.3:
         seperator.insertAdjacentElement('afterend', alink);
     }
 
+    //document.addEventListener('DOMContentLoaded', onPageLoaded);
     window.onload = onPageLoaded;
+
 })();
