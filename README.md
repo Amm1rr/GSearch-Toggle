@@ -5,7 +5,7 @@ GSearch Toggle
 
 The userscript, GSearch Persian, enables users to switch between searches in Persian or all pages. It provides the functionality to change the language of the search results displayed on Google.
 
-__Note__: It without RTL Direction
+__Note__: It's without RTL Direction
 
 
 ### Summary
