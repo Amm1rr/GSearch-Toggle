@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         GSearch Toggle lang
-// @name:fa      سوییچ فارسی/انگلیسی گوگل
-// @version      0.4
+// @name         GSearch in Persian
+// @name:fa      سوییچ جستو در سایت‌های فارسی
+// @version      0.5
 // @author       Amir
 // @updateURL    https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
 // @downloadURL  https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
-// @description  GSearch Toggle can change Google search results to different languages, specifically English and Persian, without affecting the RTL (Right-to-Left) direction. (Based on the fork from tgxhx)
+// @description  GSearch in Persian can change Google search results to Persian language, without affecting the RTL (Right-to-Left) direction. (Based on the fork from tgxhx)
 // @homepage     https://github.com/Amm1rr/GSearch-Toggle/
 // @namespace    amm1rr
-// @description:fa با این اسکریپت به راحتی می‌توان بین جستجو در زبان انگلیسی یا فارسی در جستجوی گوگل سوییچ کرد، یک گزینه زیر جستجوی گوگل اضافه می شود. البته بدون تغییر در چینش صفحه از چپ به راست.
+// @description:fa با این اسکریپت به راحتی می‌توان بین جستجو فقط در سایت‌های فارسی در جستجوی گوگل سوییچ کرد، یک گزینه زیر جستجوی گوگل اضافه می شود. البته بدون تغییر در 
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @match        https://www.google.com/search*
@@ -50,6 +50,9 @@ Last Changes: (Sort by Date)
         iOS: function() {
             return navigator.userAgent.match(/iPhone|iPad|iPod/i);
         },
+        iPhone: function() {
+            return navigator.userAgent.match(/iPhone/i);
+        },
         Opera: function() {
             return navigator.userAgent.match(/Opera Mini/i);
         },
@@ -58,11 +61,14 @@ Last Changes: (Sort by Date)
         },
         any: function() {
             return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+        },
+        mobile: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iPhone() || isMobile.Opera());
         }
     };
-
+    
     //-- Wait for the "Tools" button
-    if (isMobile.any()){        
+    if (isMobile.mobile()){
         waitForKeyElements('div[jsname="yIZuWb"]', onPageLoadedMobile);
     }else{
         waitForKeyElements(".PuHHbb", onPageLoaded);
@@ -84,7 +90,7 @@ Last Changes: (Sort by Date)
         if (isFarsi) {
             query.delete('lr');
             query.delete('tbs');
-            aTag.textContent = 'English';
+            aTag.textContent = 'Clear';
         } else {
             query.set('lr', 'lang_fa');
             query.set('tbs', 'lr:lang_fa');
