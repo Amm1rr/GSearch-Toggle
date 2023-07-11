@@ -1,5 +1,5 @@
 <h2 align="center">
-GSearch Persian
+GSearch Toggle
 </h2>
 <hr>
 
@@ -24,9 +24,6 @@ GSearch Toggle is a browser user script that executes scripts like Tampermonkey,
 
 ![Screenshot 1](Screenshots/01.jpg)
 [![Screenshot 1](Screenshots/01_thumbnail.jpg)](Screenshots/01.jpg)
-
-![Screenshot 2](Screenshots/02.jpg)
-[![Screenshot 2](Screenshots/02_thumbnail.jpg)](Screenshots/02.jpg)
 
 ![Screenshot Mobile](Screenshots/Mobile.jpg)
 [![Screenshot Mobile](Screenshots/Mobile_thumbnail.jpg)](Screenshots/Mobile.jpg)
