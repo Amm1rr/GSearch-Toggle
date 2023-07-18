@@ -14,6 +14,7 @@
 // @match        https://www.google.com/search*
 // @exclude      https://www.google.com/maps*
 // @grant        GM_addStyle
+// @license         MIT
 // ==/UserScript==
 
 /*
