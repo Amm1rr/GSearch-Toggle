@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GSearch in Persian
 // @name:fa      سوییچ جستو در سایت‌های فارسی
-// @version      5
+// @version      0.5
 // @author       Amir
 // @updateURL    https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
 // @downloadURL  https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js
