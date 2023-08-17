@@ -8,6 +8,9 @@ The userscript, GSearch Persian, enables users to switch between searches in Per
 __Note__: It's without RTL Direction
 
 
+__نکته__: استفاده این اسکریپت برای زمانی است که یک چیزی را کرک شده می‌خواهید، این اسکریپت تو سایت‌های فارسی نتیجه خوبی میده.
+
+
 ### Summary
 GSearch Toggle is a browser user script that executes scripts like Tampermonkey, Greasemonkey, and others. It allows users to switch between English and Persian search results without the right-to-left (RTL) direction effect. This can be done by adding a button beneath the Google search box.
 
