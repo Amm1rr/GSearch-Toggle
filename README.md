@@ -18,6 +18,9 @@ GSearch Toggle is a browser user script that executes scripts like Tampermonkey,
 ### Features
 - Add a Persian button on the Google result page.
 
+### Installation
+After installing the Userscript manager, simply click on [**GSearch-Toggle.user.js**](https://github.com/Amm1rr/GSearch-Toggle/raw/main/GSearch-Toggle.user.js) the installation wizard will soon appear in your browser.
+
 <br><br>
 [![](https://visitcount.itsvg.in/api?id=amm1rr&label=V&color=0&icon=2&pretty=true)](https://github.com/Amm1rr/)
 
